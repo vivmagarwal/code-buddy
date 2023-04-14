@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Playground</title>
+    <link
+      rel="stylesheet"
+      href="http://unpkg.com/jest-lite@1.0.0-alpha.4/dist/prettify.css"
+    />
+    <style>
+      textarea {
+        width: 100%;
+        height: 100px;
+        resize: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>HTML</h3>
+    <textarea id="html"><h1>test</h1></textarea>
+    <h3>CSS</h3>
+    <textarea id="css">h1 { color: red; }</textarea>
+    <h3>JavaScript</h3>
+    <textarea id="js">function add(a, b) { return a + b }</textarea>
+    <h3>Tests</h3>
+    <textarea id="tests">
+      describe('test domo', () => {
+        it ('Verify if are received and returned only numbers', () => {
+          expect(2+3).toBe(5);
+        });
+      });
+    </textarea>
+    <button onclick="updatePreview()">Run</button>
+    <button onclick="runTests()">Test</button>
+    <h3>Preview</h3>
+    <iframe id="preview" style="width: 100%; height: 300px;"></iframe>
+    <h3>Test Results</h3>
+    <div id="test-results"></div>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="http://unpkg.com/jest-lite@1.0.0-alpha.4/dist/core.js"
+    ></script>
+    <script
+      crossorigin
+      src="http://unpkg.com/jest-lite@1.0.0-alpha.4/dist/enzyme.js"
+    ></script>
+    <script
+      crossorigin
+      src="http://unpkg.com/jest-lite@1.0.0-alpha.4/dist/prettify.js"
+    ></script>
+    <script>
+      const {
+        core: { describe, it, expect, run },
+        enzyme: { mount },
+        prettify,
+      } = window.jestLite;
+
+      function updatePreview() {
+        const html = document.getElementById('html').value;
+        const css = document.getElementById('css').value;
+        const js = document.getElementById('js').value;
+        const previewFrame = document.getElementById('preview');
+        const preview = previewFrame.contentDocument || previewFrame.contentWindow.document;
+        preview.open();
+        preview.write(`<style>${css}</style>${html}<scr` + `ipt>${js}</scr` + `ipt>`);
+        preview.close();
+      }
+
+      function runTests() {
+        const testCode = document.getElementById('tests').value;
+        const testResults = document.getElementById('test-results');
+        testResults.innerHTML = '';
+        try {
+          eval(testCode);
+          const result = run();
+          prettify.toHTML(result, testResults);
+        } catch (error) {
+          testResults.innerHTML = `<pre style="color: red">${error}</pre>`;
+        }
+      }
+    </script>
+  </body>
+</html>
