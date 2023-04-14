@@ -4,6 +4,13 @@ Code-Buddy is a simple and lightweight online coding playground designed for qui
 
 ![picture 1](https://res.cloudinary.com/drxuo575c/image/upload/v1681447018/coding-problems/a64883bfdab3eda8909d2b3ca01807c40927c3f54e3934ef02e6f278040d5507.png)  
 
+
+## Roadmap
+- Preloaded with tons of questions & tests
+- No information except for signin info stored in the server, everything stored in the users browser
+- Minimal fee or opensource (free)
+- OR Free github site which can accompany my youtube videos
+
 ## Features
 
 - Separate textareas for HTML, CSS, JavaScript, and Jest tests
